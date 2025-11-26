@@ -17,6 +17,11 @@
         "psr-4": {
             "MyWeeklyAllowance\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test-all": "./vendor/bin/phpunit tests",
+        "test": "./vendor/bin/phpunit",
+        "mwa-cli": "./bin/allowance"
     }
 }
 

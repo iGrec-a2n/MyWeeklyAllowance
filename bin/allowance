@@ -1,0 +1,159 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use InvalidArgumentException;
+use MyWeeklyAllowance\Teenager;
+use MyWeeklyAllowance\Tutor;
+
+function prompt(string $message): string
+{
+    echo $message . ' ';
+    $input = trim((string) fgets(STDIN));
+    return $input;
+}
+
+function readAmount(string $message): float
+{
+    while (true) {
+        $raw = prompt($message);
+        if ($raw === '') {
+            echo "Montant requis.\n";
+            continue;
+        }
+        if (!is_numeric($raw)) {
+            echo "Veuillez saisir un nombre.\n";
+            continue;
+        }
+        return (float) $raw;
+    }
+}
+
+/**
+ * @param array<string,Teenager> $accounts
+ */
+function selectTeenager(array $accounts): ?Teenager
+{
+    if (empty($accounts)) {
+        echo "Aucun compte adolescent n'existe encore.\n";
+        return null;
+    }
+
+    $email = prompt("Email de l'adolescent :");
+    if (!isset($accounts[$email])) {
+        echo "Aucun adolescent trouvé pour $email.\n";
+        return null;
+    }
+
+    return $accounts[$email];
+}
+
+echo "=== MyWeeklyAllowance ===\n";
+$parentName = prompt('Nom du parent :');
+$parentEmail = prompt('Email du parent :');
+
+$tutor = new Tutor($parentName ?: 'Parent', $parentEmail ?: 'parent@example.com');
+$accounts = [];
+
+while (true) {
+    echo "\nQue souhaitez-vous faire ?\n";
+    echo " 1. Créer un compte adolescent\n";
+    echo " 2. Déposer de l'argent\n";
+    echo " 3. Enregistrer une dépense\n";
+    echo " 4. Définir l'allocation hebdomadaire\n";
+    echo " 5. Appliquer les allocations hebdomadaires\n";
+    echo " 6. Lister les comptes\n";
+    echo " 0. Quitter\n";
+
+    $choice = prompt('Choix :');
+
+    switch ($choice) {
+        case '1':
+            $name = prompt("Nom de l'adolescent :");
+            $email = prompt("Email de l'adolescent :");
+            if (isset($accounts[$email])) {
+                echo "Un compte existe déjà pour $email.\n";
+                break;
+            }
+            $teen = $tutor->createTeenagerAccount($name, $email);
+            $accounts[$email] = $teen;
+            echo "Compte créé pour {$teen->getName()} ({$teen->getEmail()}).\n";
+            break;
+
+        case '2':
+            $teen = selectTeenager($accounts);
+            if (!$teen) {
+                break;
+            }
+            $amount = readAmount('Montant à déposer :');
+            try {
+                $tutor->deposit($teen, $amount);
+                echo "Nouveau solde : {$teen->getBalance()} €\n";
+            } catch (InvalidArgumentException $e) {
+                echo "Erreur : {$e->getMessage()}\n";
+            }
+            break;
+
+        case '3':
+            $teen = selectTeenager($accounts);
+            if (!$teen) {
+                break;
+            }
+            $amount = readAmount('Montant de la dépense :');
+            $description = prompt('Description :');
+            try {
+                $tutor->recordExpense($teen, $amount, $description);
+                echo "Dépense enregistrée. Solde restant : {$teen->getBalance()} €\n";
+            } catch (InvalidArgumentException $e) {
+                echo "Erreur : {$e->getMessage()}\n";
+            }
+            break;
+
+        case '4':
+            $teen = selectTeenager($accounts);
+            if (!$teen) {
+                break;
+            }
+            $amount = readAmount("Montant hebdomadaire pour {$teen->getName()} :");
+            try {
+                $tutor->setWeeklyAllocation($teen, $amount);
+                echo "Allocation de {$teen->getWeeklyAllocation()} € définie.\n";
+            } catch (InvalidArgumentException $e) {
+                echo "Erreur : {$e->getMessage()}\n";
+            }
+            break;
+
+        case '5':
+            if (empty($accounts)) {
+                echo "Aucun compte disponible.\n";
+                break;
+            }
+            foreach ($accounts as $teen) {
+                $teen->applyWeeklyAllocation();
+                echo "{$teen->getName()} reçoit {$teen->getWeeklyAllocation()} € => solde {$teen->getBalance()} €\n";
+            }
+            break;
+
+        case '6':
+            if (empty($accounts)) {
+                echo "Aucun compte à afficher.\n";
+                break;
+            }
+            echo "Liste des comptes :\n";
+            foreach ($accounts as $teen) {
+                echo "- {$teen->getName()} ({$teen->getEmail()}) : {$teen->getBalance()} € / allocation {$teen->getWeeklyAllocation()} €\n";
+            }
+            break;
+
+        case '0':
+            echo "À bientôt !\n";
+            exit(0);
+
+        default:
+            echo "Choix invalide.\n";
+    }
+}
+

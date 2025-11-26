@@ -18,8 +18,19 @@ composer install
 
 2. Run tests:
 ```bash
-vendor/bin/phpunit
+composer test-all           // Pour lancer tous les test
+composer test --chemin_vers_/nom_du_test   // Pour lancer un test au choix
 ```
+
+## Interface CLI
+
+L'exécution suivante lance une interface en ligne de commande permettant de créer des comptes, de déposer de l'argent, d'enregistrer des dépenses et d'appliquer les allocations hebdomadaires :
+
+```bash
+composer mwa-cli
+```
+
+Le script ne persiste pas les données : elles sont conservées uniquement durant la session courante.
 
 ## Development
 
