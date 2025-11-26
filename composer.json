@@ -21,7 +21,7 @@
     "scripts": {
         "test-all": "./vendor/bin/phpunit tests",
         "test": "./vendor/bin/phpunit",
-        "mwa-cli": "php ./bin/allowance",
+        "mwa-cli": "bin/allowance",
         "test-coverage": "php -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-text --coverage-html coverage/ || phpdbg -qrr ./vendor/bin/phpunit --coverage-text --coverage-html coverage/",
         "test-coverage-text": "php -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-text || phpdbg -qrr ./vendor/bin/phpunit --coverage-text",
         "test-coverage-clover": "php -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-clover coverage.clover || phpdbg -qrr ./vendor/bin/phpunit --coverage-clover coverage.clover",
