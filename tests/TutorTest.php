@@ -81,6 +81,28 @@ class TutorTest extends TestCase
         $this->assertEquals(20.0, $teenager->getWeeklyAllocation());
     }
 
+    public function testDepositRejectsNegativeAmount(): void
+    {
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
+        $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Amount must be positive');
+
+        $parent->deposit($teenager, -50.0);
+    }
+
+    public function testRecordExpenseRejectsNegativeAmount(): void
+    {
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
+        $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Amount must be positive');
+
+        $parent->recordExpense($teenager, -25.0, 'Invalid');
+    }
+
     public function testWeeklyAllocationIsAppliedAutomatically(): void
     {
         $parent = new Tutor('Alice Smith', 'alice@example.com');

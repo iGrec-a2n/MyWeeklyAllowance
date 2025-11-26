@@ -23,5 +23,45 @@ class TeenagerTest extends TestCase
         
         $this->assertEquals(0.0, $teenager->getBalance());
     }
+
+    public function testSetWeeklyAllocationRejectsNegative(): void
+    {
+        $teenager = new Teenager('Test', 'test@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Weekly allocation cannot be negative');
+
+        $teenager->setWeeklyAllocation(-5.0);
+    }
+
+    public function testIncreaseBalanceRejectsNegative(): void
+    {
+        $teenager = new Teenager('Test', 'test@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Amount must be positive');
+
+        $teenager->increaseBalance(-10.0);
+    }
+
+    public function testDecreaseBalanceRejectsNegative(): void
+    {
+        $teenager = new Teenager('Test', 'test@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Amount must be positive');
+
+        $teenager->decreaseBalance(-3.0);
+    }
+
+    public function testDecreaseBalanceThrowsWhenInsufficient(): void
+    {
+        $teenager = new Teenager('Test', 'test@example.com');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Insufficient balance');
+
+        $teenager->decreaseBalance(1.0);
+    }
 }
 
