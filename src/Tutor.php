@@ -7,7 +7,7 @@ use InvalidArgumentException;
 /**
  * Représente un parent qui peut gérer des comptes adolescents.
  */
-class ParentUser
+class Tutor
 {
     private string $name;
     private string $email;

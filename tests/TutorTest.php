@@ -2,24 +2,24 @@
 
 namespace MyWeeklyAllowance\Tests;
 
-use MyWeeklyAllowance\ParentUser;
+use MyWeeklyAllowance\Tutor;
 use MyWeeklyAllowance\Teenager;
 use PHPUnit\Framework\TestCase;
 
-class ParentTest extends TestCase
+class TutorTest extends TestCase
 {
     public function testCanCreateParent(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         
-        $this->assertInstanceOf(ParentUser::class, $parent);
+        $this->assertInstanceOf(Tutor::class, $parent);
         $this->assertEquals('Alice Smith', $parent->getName());
         $this->assertEquals('alice@example.com', $parent->getEmail());
     }
 
     public function testParentCanCreateTeenagerAccount(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         
         $this->assertInstanceOf(Teenager::class, $teenager);
@@ -29,7 +29,7 @@ class ParentTest extends TestCase
 
     public function testParentCanDepositMoney(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         
         $parent->deposit($teenager, 50.0);
@@ -39,7 +39,7 @@ class ParentTest extends TestCase
 
     public function testParentCanDepositMultipleTimes(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         
         $parent->deposit($teenager, 30.0);
@@ -50,7 +50,7 @@ class ParentTest extends TestCase
 
     public function testParentCanRecordExpense(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         $parent->deposit($teenager, 100.0);
         
@@ -61,7 +61,7 @@ class ParentTest extends TestCase
 
     public function testCannotRecordExpenseIfInsufficientBalance(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         $parent->deposit($teenager, 10.0);
         
@@ -73,7 +73,7 @@ class ParentTest extends TestCase
 
     public function testParentCanSetWeeklyAllocation(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         
         $parent->setWeeklyAllocation($teenager, 20.0);
@@ -83,7 +83,7 @@ class ParentTest extends TestCase
 
     public function testWeeklyAllocationIsAppliedAutomatically(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         $parent->setWeeklyAllocation($teenager, 20.0);
         
@@ -94,7 +94,7 @@ class ParentTest extends TestCase
 
     public function testWeeklyAllocationCanBeAppliedMultipleTimes(): void
     {
-        $parent = new ParentUser('Alice Smith', 'alice@example.com');
+        $parent = new Tutor('Alice Smith', 'alice@example.com');
         $teenager = $parent->createTeenagerAccount('John Doe', 'john@example.com');
         $parent->setWeeklyAllocation($teenager, 20.0);
         
