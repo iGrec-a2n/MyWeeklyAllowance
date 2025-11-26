@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1764156806">
-  <project timestamp="1764156806">
-    <file name="C:\Users\modes\Desktop\MyWeeklyAllowance\src\Teenager.php">
+<coverage generated="1764164293">
+  <project timestamp="1764164293">
+    <file name="/Users/ynda/Documents/Dev/Code/HETIC/MyWeeklyAllowance/src/Teenager.php">
       <class name="MyWeeklyAllowance\Teenager" namespace="global">
         <metrics complexity="13" methods="9" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="29" coveredelements="29"/>
       </class>
@@ -36,7 +36,7 @@
       <line num="78" type="stmt" count="1"/>
       <metrics loc="81" ncloc="78" classes="1" methods="9" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="20" coveredstatements="20" elements="29" coveredelements="29"/>
     </file>
-    <file name="C:\Users\modes\Desktop\MyWeeklyAllowance\src\Tutor.php">
+    <file name="/Users/ynda/Documents/Dev/Code/HETIC/MyWeeklyAllowance/src/Tutor.php">
       <class name="MyWeeklyAllowance\Tutor" namespace="global">
         <metrics complexity="10" methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="21" coveredelements="21"/>
       </class>
