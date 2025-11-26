@@ -3,4 +3,4 @@ composer.lock
 .idea/
 .vscode/
 *.log
-.*.cache/
+.*.cache
