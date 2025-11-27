@@ -52,7 +52,7 @@ function selectTeenager(array $accounts): ?Teenager
 }
 
 echo "=== MyWeeklyAllowance ===\n";
-$parentName = prompt('Nom du parent :');
+$parentName = prompt('NOM et Prénom du parent :');
 $parentEmail = prompt('Email du parent :');
 
 $tutor = new Tutor($parentName ?: 'Parent', $parentEmail ?: 'parent@example.com');
@@ -72,7 +72,7 @@ while (true) {
 
     switch ($choice) {
         case '1':
-            $name = prompt("Nom de l'adolescent :");
+            $name = prompt("NOM et Prénom de l'adolescent :");
             $email = prompt("Email de l'adolescent :");
             if (isset($accounts[$email])) {
                 echo "Un compte existe déjà pour $email.\n";
