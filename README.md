@@ -61,8 +61,8 @@ Vous pouvez chaîner plusieurs commandes dans la même invocation ; elles seront
 
 ## Crédits
 
-- **[Yann](https://github.com/iGrec-a2n)** : création des tests unitaires (`tests/`), définition des comportements attendus et mise en place initiale du CLI de l'application en se basant sur le code fourni.
-- **[Modestin](https://github.com/Lm-hg)** : implémentation du code applicatif à partir des tests de Yann, intégration du CLI (`bin/allowance`) et mise en place de la génération de la couverture de code (PHPUnit + Xdebug/phpdbg).
+- **[Yann Abouakou N'DAH](https://github.com/iGrec-a2n)** : création des tests unitaires (`tests/`), définition des comportements attendus et mise en place initiale du CLI de l'application en se basant sur le code fourni.
+- **[Lissanou Modestin HOUNGA](https://github.com/Lm-hg)** : implémentation du code applicatif à partir des tests de Yann, intégration du CLI (`bin/allowance`) et mise en place de la génération de la couverture de code (PHPUnit + Xdebug/phpdbg).
 
 
 ## Development
